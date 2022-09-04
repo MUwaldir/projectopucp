@@ -8,26 +8,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>Login</title>
 </head>
-<body style="background-color: rgba(0,0,0, 0.1);" >
-    <div class="container d-flex justify-content-center align-items-center " style="height:100vh ; " >
-        <form method="post" class="col-md-4 bg-secondary p-4 rounded align-items-center my-auto" >
+<body style="background-color: rgba(0,0,0, 0.1); height: 100vh;" >
+    <h1 class="py-2 bg-secondary text-center text-light">GESTIÓN DE TAREAS</h1>
+    <div class="container "  >
+
+        <form method="post" class="col-md-4 bg-secondary p-4 rounded align-items-center mt-5 mx-auto" action="{% url 'gestion_tareas:login' %}" >
+            {% csrf_token %}
             <h1 class="text-center text-light mb-4 fw-bold">Bienvenido</h1>
-        <div class = "form-group">
-        <label for="itemUsuario">Usuario</label>
-        <input type="text" class="form-control" id="itemUsuario" name="itemUsuario" aria-describedby="emailHelp" placeholder="Usuario">
+            <div class = "form-group">
+            <label for="itemUsuario">Usuario</label>
+            <input type="text" class="form-control" id="itemUsuario" name="itemUsuario" aria-describedby="emailHelp" placeholder="Usuario">
 
-        </div>
-        <div class="form-group">
-        <label for="itemPassword">Password</label>
-        <input type="password" class="form-control" id="itemPassword" name="itemPassword" placeholder="Password">
-        </div>
+            </div>
+            <div class="form-group">
+            <label for="itemPassword">Password</label>
+            <input type="password" class="form-control" id="itemPassword" name="itemPassword" placeholder="Password">
+            </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Login</button>
+            <button type="submit" class="btn btn-primary mt-4">Login</button>
+            
         </form>
-        
-        
-        
-        
+        {% if mensaje %}
+            <div class="col text-center ">
+            <h6 class="text-center mx-auto mt-5 fs-4">{{ mensaje }}</h6>
+            </div>
+
+        {% endif %}
+
+
+
     </div>
 
 
