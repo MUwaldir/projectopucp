@@ -1,2 +1,2 @@
-# projectopucp
-projecto de examen parcial django python
+# proyectopucp
+proyecto de examen parcial django python
