@@ -13,7 +13,10 @@
     <div class="container  ">
         <div class="row   ">
             <div class="col-md-10' mx-auto">
-              <a class="btn btn-primary mb-3 w-25 fw-bold ms-auto" href="{% url 'gestion_tareas:vista_creacion'  %}">Crear Tarea</a>
+              <div class=" d-flex justify-content-between m-1" >
+                <a class="col-md-4 btn btn-primary fw-bold " href="{% url 'gestion_tareas:vista_creacion'  %}">Crear Tarea</a>
+                <h2 class="col-md-4 btn btn-light fw-bold h-100">HOY :  {{ hoy }}</h2>
+              </div>
                 <table class="table table-striped text-center table-hover">
                     <thead class="table-dark ">
                       <tr >
@@ -23,6 +26,7 @@
                         <th scope="col">Fecha de Entrega</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Estado de la tarea</th>
+                       
                         <th scope="col">ACCIONES</th>
                         
                       </tr>
@@ -41,11 +45,12 @@
                         <td><a class="btn btn-success" href={% url "gestion_tareas:vista_edicion" tareas.id %}>Editar</a><a class="btn btn-warning  m-1" href={% url "gestion_tareas:vista_detallada" tareas.id %}>Detalles</a><a class="btn btn-danger  m-1" href={% url "gestion_tareas:delete" tareas.id   %}>ELiminar</a></td>
                       </tr>
 
-  
+                       
                       {% endfor %}
                       
                     </tbody>
                   </table>
+
                  
             </div>
         </div>

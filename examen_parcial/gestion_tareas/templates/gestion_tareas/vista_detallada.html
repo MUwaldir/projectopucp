@@ -12,7 +12,8 @@
     <h1 class="py-2 bg-secondary text-center text-light">GESTIÓN DE TAREAS</h1>
     <div class="container fs-3"  >
 
-        
+        <form action="{% url 'gestion_tareas:vista_detallada' tarea_detalle.id %}" method="post">
+                {% csrf_token %}
             <div class="row p-3 border border-primary bg-light">
                 <div class="col-md-4 ml-auto fw-bold">
                     Usuario Responsable:  
@@ -39,16 +40,18 @@
             <div class="row p-3 border border-primary rounded bg-light">
 
                 <div class="col-md-4 fw-bold">Estado de la tarea : </div>
-                <div class="col-md-6">{{ tarea_detalle.estado_dela_tarea }}</div>
+                <div  class="col-md-6">{{ tarea_detalle.estado_dela_tarea }}</div>
             </div>
     
         </div>
        
             <div class="col d-flex justify-content-around mt-5">
 
-                <a class="col-3 btn btn-success float-start" href={% url 'gestion_tareas:dashboard' %}>Salir</a>
-                <a class="col-3 btn btn-danger float-start" href="">Finalizar</a>
+                <a class="col-3 btn btn-success float-start" href="/dashboard">Salir</a>
+                <button type="submit" class="col-3 btn btn-danger float-start">Finalizar</button>
+                
             </div>
+        </form>
 
        
 

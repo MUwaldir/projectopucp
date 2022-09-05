@@ -27,12 +27,25 @@ def login(request):
 
 
 def dashboard(request):
+    hoy =date.today()
     tareas_totales = tarea.objects.all()
-    tarea_user= tarea.objects.filter(usuario_responsable = 'waldir')
-    return render(request, 'gestion_tareas/dashboard.html',{'tareas_usuario': tarea_user})
+    tarea_user= tarea.objects.filter(usuario_responsable = 'waldir' )
+    for tareas in tarea_user:
+        if tareas.estado_dela_tarea != 'FINALIZADO':
+            dif = tareas.fecha_entrega - date.today()
+            if dif.days <= 2 and dif.days >= 0:
+                tareas.estado_dela_tarea = 'FINALIZANDO' 
+                tareas.save()
+            elif dif.days < 0:
+                tareas.estado_dela_tarea = 'PENDIENTE'
+                tareas.save()
+            elif dif.days > 2 :
+                tarea.estado_dela_tarea = 'PROGRESO'
+                tareas.save()
+    return render(request, 'gestion_tareas/dashboard.html',{'tareas_usuario': tarea_user, 'hoy':hoy})
 
 def crear(request):
-    fecha = datetime.now()
+    fecha =date.today()
     if request.method == 'POST':
         responsable = request.POST.get('usuario_res')
         fechainicio = request.POST.get('fechainicio')
@@ -57,6 +70,7 @@ def editar(request, tareas_id):
             tarea_info.fecha_de_creacion = fechainicio
             tarea_info.fecha_entrega = fechaentrega
             tarea_info.descripcion = descripcion
+            tarea_info.estado_dela_tarea = 'PROGRESO'
             tarea_info.save()
             return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
             
@@ -69,4 +83,9 @@ def delete(request, tareas_id):
 
 def detalle(request,tareas_id):
     tareas_info = tarea.objects.get(id = tareas_id)
+    if request.method == 'POST':
+        tareas_info.estado_dela_tarea = 'FINALIZADO'
+        tareas_info.save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request, 'gestion_tareas/vista_detallada.html',{'tarea_detalle': tareas_info})
+
