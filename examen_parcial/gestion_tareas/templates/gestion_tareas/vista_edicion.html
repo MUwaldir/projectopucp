@@ -9,7 +9,7 @@
     <title>Login</title>
 </head>
 <body style="background-color: rgba(0,0,0, 0.1); height: 100vh;" >
-    <h1 class="py-2 bg-secondary text-center text-light">GESTIÓN DE TAREAS</h1>
+    <h1 class="py-2 bg-secondary text-center text-light">EDICIÓN DE LA TAREA</h1>
     <div class="container d-flex justify-content-center"  >
 
         <form class="w-75 " action="{% url 'gestion_tareas:vista_edicion' tareas_editar.id %}" method="post">
@@ -20,6 +20,13 @@
               
                
                 <input type="text" value="{{ tareas_editar.usuario_responsable }}" class="form-control" name="usuario_res" id="usuario_res" aria-describedby="emailHelp" required>
+               
+            </div>
+            <div class="form-group mb-3">
+                <label for="tarea_nombre" class="form-label">Nombre Tarea</label>
+              
+               
+                <input type="text" value="{{ tareas_editar.nombre_tarea }}" class="form-control" name="tarea_nombre" id="tarea_nombre" aria-describedby="emailHelp" required>
                
             </div>
             <div class="form-group col-md-3">
@@ -38,8 +45,12 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" value  id="description" cols="30" rows="10" type="text" class="form-control" required> {{ tareas_editar.descripcion }}</textarea>
             </div>
+            <div class="row gap-md-2 justify-content-between mb-4">
+
+                <button type="submit" class="btn btn-primary col-md-5 fw-bold" >Actualizar</button>
+                <a class="btn btn-warning col-md-5 " href={% url "gestion_tareas:dashboard" %}>Salir</a>
+            </div>
             
-            <button type="submit" class="btn btn-primary w-100 fw-bold" >Actualizar</button>
 
         </form>
        

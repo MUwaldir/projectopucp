@@ -31,10 +31,10 @@ def dashboard(request):
     tareas_totales = tarea.objects.all()
     tarea_user= tarea.objects.filter(usuario_responsable = 'waldir' )
     for tareas in tarea_user:
-        if tareas.estado_dela_tarea != 'FINALIZADO':
+        if tareas.estado_dela_tarea != 'FINALIZADA':
             dif = tareas.fecha_entrega - date.today()
             if dif.days <= 2 and dif.days >= 0:
-                tareas.estado_dela_tarea = 'FINALIZANDO' 
+                tareas.estado_dela_tarea = 'FINALIZANDO'
                 tareas.save()
             elif dif.days < 0:
                 tareas.estado_dela_tarea = 'PENDIENTE'
@@ -48,12 +48,13 @@ def crear(request):
     fecha =date.today()
     if request.method == 'POST':
         responsable = request.POST.get('usuario_res')
+        tarea_nombre= request.POST.get('tarea_nombre')
         fechainicio = request.POST.get('fechainicio')
         fechainicio = parse(fechainicio)
         fechaentrega = request.POST.get('fechaentrega')
         fechaentrega = parse(fechaentrega)
         descripcion = request.POST.get('description')
-        tarea(usuario_responsable = responsable,descripcion= descripcion, fecha_de_creacion=fechainicio, fecha_entrega=fechaentrega).save()
+        tarea(usuario_responsable = responsable,nombre_tarea = tarea_nombre,descripcion= descripcion, fecha_de_creacion=fechainicio, fecha_entrega=fechaentrega).save()
         return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request, 'gestion_tareas/vista_creacion.html',{'fecha': fecha})
 
@@ -61,12 +62,14 @@ def editar(request, tareas_id):
         tarea_info = tarea.objects.get(id = tareas_id)
         if request.method == 'POST':
             responsable = request.POST.get('usuario_res')
+            tarea_nombre = request.POST.get('tarea_nombre')
             fechainicio = request.POST.get('fechainicio')
             fechainicio = parse(fechainicio)
             fechaentrega = request.POST.get('fechaentrega')
             fechaentrega = parse(fechaentrega)
             descripcion = request.POST.get('description')
             tarea_info.usuario_responsable = responsable
+            tarea_info.nombre_tarea = tarea_nombre
             tarea_info.fecha_de_creacion = fechainicio
             tarea_info.fecha_entrega = fechaentrega
             tarea_info.descripcion = descripcion
@@ -84,7 +87,7 @@ def delete(request, tareas_id):
 def detalle(request,tareas_id):
     tareas_info = tarea.objects.get(id = tareas_id)
     if request.method == 'POST':
-        tareas_info.estado_dela_tarea = 'FINALIZADO'
+        tareas_info.estado_dela_tarea = 'FINALIZADA'
         tareas_info.save()
         return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request, 'gestion_tareas/vista_detallada.html',{'tarea_detalle': tareas_info})

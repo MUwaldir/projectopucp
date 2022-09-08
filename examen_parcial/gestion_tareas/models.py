@@ -8,8 +8,10 @@ class usuario(models.Model):
     codigo_usuario = models.CharField(max_length=128, default='')
     contrasenia = models.CharField(max_length=128 , default='')
 
+
 class tarea(models.Model):
-    descripcion = models.CharField(max_length=10000, default='')
+    nombre_tarea = models.CharField(max_length=50,default='')
+    descripcion = models.CharField(max_length=500, default='')
     fecha_de_creacion = models.DateField(default=datetime.date.today)
     fecha_entrega = models.DateField(default=datetime.date.today)
     usuario_responsable = models.CharField(max_length=128 , default='')

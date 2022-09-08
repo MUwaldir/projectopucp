@@ -17,31 +17,39 @@
                 <a class="col-md-4 btn btn-primary fw-bold " href="{% url 'gestion_tareas:vista_creacion'  %}">Crear Tarea</a>
                 <h2 class="col-md-4 btn btn-light fw-bold h-100">HOY :  {{ hoy }}</h2>
               </div>
-                <table class="table table-striped text-center table-hover">
+                <table class="table table-striped text-center table-hover ">
                     <thead class="table-dark ">
                       <tr >
-                        <!-- <th scope="col">ID</th> -->
+                        <th scope="col">ID</th>
                         <th class="my-auto" scope="col">Usuario Responsable</th>
-                        <th scope="col">Fecha de Creación</th>
-                        <th scope="col">Fecha de Entrega</th>
-                        <th scope="col">Descripción</th>
+                        <th scope="col">Nombre tarea</th>
                         <th scope="col">Estado de la tarea</th>
                        
                         <th scope="col">ACCIONES</th>
                         
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                       {% for tareas in tareas_usuario %}
                       <tr>
                        
-                       <!--  <th scope="row">{{ tareas.id }}</th> -->
-                        <td>{{ tareas.usuario_responsable }}</td>
-                        <td>{{ tareas.fecha_de_creacion }}</td>
-                        <td>{{ tareas.fecha_entrega }}</td>
-                        <td>{{ tareas.descripcion }}</td>
+                        <th scope="row">{{ tareas.id }}</th>
+                        <td>{{ tareas.usuario_responsable }}</td>                     
+                        <td>{{ tareas.nombre_tarea}}</td>
                         
-                        <td>{{ tareas.estado_dela_tarea }}</td>
+                        {% if tareas.estado_dela_tarea == 'PROGRESO' %}
+                        <td style="color:green ;" class="fw-bold bg-dark" >{{ tareas.estado_dela_tarea }}</td>  
+                        {% endif %}
+                        {% if tareas.estado_dela_tarea == 'FINALIZANDO' %}
+                        <td style="color:yellow ;" class="fw-bold bg-dark">{{ tareas.estado_dela_tarea }}</td>  
+                        {% endif %}
+                        {% if tareas.estado_dela_tarea == 'FINALIZADA' %}
+                        <td style="color:lightblue ;" class="fw-bold bg-dark">{{ tareas.estado_dela_tarea }}</td>  
+                        {% endif %}
+                        {% if tareas.estado_dela_tarea == 'PENDIENTE' %}
+                        <td style="color:red ;" class="fw-bold bg-dark">{{ tareas.estado_dela_tarea }}</td>  
+                        {% endif %}
+                                               
                         <td><a class="btn btn-success" href={% url "gestion_tareas:vista_edicion" tareas.id %}>Editar</a><a class="btn btn-warning  m-1" href={% url "gestion_tareas:vista_detallada" tareas.id %}>Detalles</a><a class="btn btn-danger  m-1" href={% url "gestion_tareas:delete" tareas.id   %}>ELiminar</a></td>
                       </tr>
 

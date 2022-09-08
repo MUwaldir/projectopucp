@@ -9,7 +9,7 @@
     <title>Login</title>
 </head>
 <body style="background-color: rgba(0,0,0, 0.1); height: 100vh;" >
-    <h1 class="py-2 bg-secondary text-center text-light">GESTIÓN DE TAREAS</h1>
+    <h1 class="py-2 bg-secondary text-center text-light">CREACIÓN DE LA TAREA</h1>
     <div class="container d-flex justify-content-center"  >
         <form class="w-75 " action="{% url 'gestion_tareas:vista_creacion' %}" method="post">
             
@@ -17,6 +17,13 @@
             <div class="form-group mb-3">
                 <label for="usuario_res" class="form-label">Responsable</label>
                 <input type="text" class="form-control" name="usuario_res" id="usuario_res" aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="tarea_nombre" class="form-label">Nombre Tarea</label>
+              
+               
+                <input type="text" value="" class="form-control" name="tarea_nombre" id="tarea_nombre" aria-describedby="emailHelp" required>
+               
             </div>
             <div class="form-group col-md-3">
                 <label for="start">Fecha Inicio</label>
@@ -33,8 +40,11 @@
                 <textarea name="description"  id="description" cols="30" rows="10" type="text" class="form-control" required> </textarea>
             </div>
             <input type="hidden" name="id" value="">
-            <button type="submit" class="btn btn-primary w-100 fw-bold" >Crear Tarea</button>
+            <div class="row gap-md-2 justify-content-between mb-4">
 
+                <button type="submit" class="btn btn-primary col-md-5  fw-bold" >Crear Tarea</button>
+                <a class="btn btn-warning col-md-5 " href={% url "gestion_tareas:dashboard" %}>Salir</a>
+            </div>
         </form>
        
        
